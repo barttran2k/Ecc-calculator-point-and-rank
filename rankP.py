@@ -53,7 +53,8 @@ def get_rank():
 
     # define the point P
     P = (x, y)
-    if findpoint(a,b,p,[P]) == []:
-        print("This point is not on the curve")
+    check = findpoint(a,b,p,[])
+    if P not in check:
+        print("This point P=({},{}) is not on the curve".format(x,y))
         return
     print("y^2 = x^3 + {}x + {} (mod {})".format(a,b,p),"Rank of P=({},{}): ".format(x,y),rank_point(P,a,p))
