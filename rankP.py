@@ -41,7 +41,7 @@ def rank_point(P,a,p):
         R = point_addition(R, P,a,p)
         R = point_addition(R, P,a,p)
         i += 1
-        print("Point {}: {}".format(i+1,Q))
+        print("Point at rank {}: {}".format(i+1,Q))
     return i + 1 
 
 def get_rank():
