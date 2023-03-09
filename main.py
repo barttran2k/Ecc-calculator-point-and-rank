@@ -1,3 +1,5 @@
+from findpoint import get_points
+from rankP import get_rank
 def menu():
     print('---------------------Menu----------------------')
     print('1. Find points on the curve')
@@ -8,10 +10,10 @@ while True:
     choice = int(input('Enter your choice: '))
     if choice == 1:
         print('Find points on the curve')
-        from findpoint import *
+        get_points()
     elif choice == 2:
         print('Find rank of a point')
-        from rankP import *
+        get_rank()
     elif choice == 3:
         print('Exit')
         exit()

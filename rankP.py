@@ -1,15 +1,7 @@
-
-a = int(input("Enter a: "))
-b = int(input("Enter b: "))
-p = int(input("Enter p: "))
-x = int(input("Enter x: "))
-y = int(input("Enter y: "))
-
-# define the point P
-P = (x, y)
+from findpoint import findpoint
 
 # define the function to add two points on the elliptic curve
-def point_addition(P, Q):
+def point_addition(P, Q,a,p):
     if P == (0, 0):
         return Q
     if Q == (0, 0):
@@ -30,7 +22,7 @@ def point_addition(P, Q):
     return (x, y)
 
 # define the function to double a point on the elliptic curve
-def point_doubling(P):
+def point_doubling(P,a,p):
     if P[1] == 0:
         return (0, 0)
     m = (3 * P[0] * P[0] + a) * pow(2 * P[1], -1, p) % p
@@ -40,17 +32,28 @@ def point_doubling(P):
     return (x, y)
 
 # define the function to compute the rank of a point on the elliptic curve
-def rank_point(P):
+def rank_point(P,a,p):
     Q = P
-    R = point_doubling(P)
+    R = point_doubling(P,a,p)
     i = 0
     while Q != R:
-        Q = point_addition(Q, P)
-        R = point_addition(R, P)
-        R = point_addition(R, P)
+        Q = point_addition(Q, P,a,p)
+        R = point_addition(R, P,a,p)
+        R = point_addition(R, P,a,p)
         i += 1
         print("Point {}: {}".format(i+1,Q))
     return i + 1 
 
-# compute the rank of the point P
-print("y^2 = x^3 + {}x + {} (mod {})".format(a,b,p),"Rank of P=({},{}): ".format(x,y),rank_point(P))
+def get_rank():
+    a = int(input("Enter a: "))
+    b = int(input("Enter b: "))
+    p = int(input("Enter p: "))
+    x = int(input("Enter x: "))
+    y = int(input("Enter y: "))
+
+    # define the point P
+    P = (x, y)
+    if findpoint(a,b,p,[P]) == []:
+        print("This point is not on the curve")
+        return
+    print("y^2 = x^3 + {}x + {} (mod {})".format(a,b,p),"Rank of P=({},{}): ".format(x,y),rank_point(P,a,p))
